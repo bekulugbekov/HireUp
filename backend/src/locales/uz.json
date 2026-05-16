@@ -1,0 +1,40 @@
+{
+  "auth": {
+    "registered": "Muvaffaqiyatli ro'yxatdan o'tdingiz",
+    "loggedIn": "Muvaffaqiyatli kirdingiz",
+    "invalidCredentials": "Email yoki parol noto'g'ri",
+    "unauthorized": "Avtorizatsiyadan o'tilmagan. Iltimos, kiring",
+    "forbidden": "Ruxsat yo'q",
+    "tokenExpired": "Sessiya muddati tugadi. Qayta kiring",
+    "emailExists": "Bu email allaqachon ro'yxatdan o'tgan"
+  },
+  "user": {
+    "notFound": "Foydalanuvchi topilmadi",
+    "updated": "Profil muvaffaqiyatli yangilandi",
+    "deleted": "Foydalanuvchi o'chirildi"
+  },
+  "job": {
+    "created": "Vakansiya muvaffaqiyatli joylashtirildi",
+    "updated": "Vakansiya yangilandi",
+    "deleted": "Vakansiya o'chirildi",
+    "notFound": "Vakansiya topilmadi",
+    "fetched": "Vakansiyalar olindi",
+    "noPermission": "Siz faqat o'z vakansiyalaringizni boshqara olasiz"
+  },
+  "application": {
+    "submitted": "Ariza muvaffaqiyatli yuborildi",
+    "alreadyApplied": "Siz bu vakansiyaga allaqachon ariza berdingiz",
+    "fetched": "Arizalar olindi",
+    "notFound": "Ariza topilmadi",
+    "updated": "Ariza holati yangilandi"
+  },
+  "validation": {
+    "required": "Bu maydon to'ldirilishi shart",
+    "invalidEmail": "To'g'ri email kiriting",
+    "passwordLength": "Parol kamida 6 ta belgidan iborat bo'lishi kerak",
+    "invalidRole": "Rol user, employer yoki admin bo'lishi kerak"
+  },
+  "server": {
+    "error": "Server ichki xatosi"
+  }
+}

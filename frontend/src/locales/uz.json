@@ -1,0 +1,179 @@
+{
+  "nav": {
+    "home": "Bosh sahifa",
+    "jobs": "Vakansiyalar",
+    "login": "Kirish",
+    "register": "Ro'yxatdan o'tish",
+    "dashboard": "Dashboard",
+    "logout": "Chiqish",
+    "profile": "Profil",
+    "savedJobs": "Saqlangan",
+    "myApplications": "Arizalarim",
+    "postJob": "Vakansiya joylashtirish",
+    "myJobs": "Mening vakansiyalarim",
+    "applicants": "Nomzodlar",
+    "admin": "Admin Panel"
+  },
+  "home": {
+    "hero": {
+      "title": "Orzuingizdagi ishni toping",
+      "subtitle": "Minglab vakansiyalar orasidan o'zingizga mos ishni toping va karyerangizni boshlang",
+      "searchPlaceholder": "Kasb yoki kompaniya nomi...",
+      "locationPlaceholder": "Shahar yoki hududni kiriting",
+      "searchBtn": "Qidirish",
+      "stats": {
+        "jobs": "Faol vakansiyalar",
+        "companies": "Kompaniyalar",
+        "applicants": "Muvaffaqiyatli ishga joylashganlar"
+      }
+    },
+    "categories": {
+      "title": "Mashhur kategoriyalar",
+      "subtitle": "O'z sohangiz bo'yicha vakansiyalarni toping"
+    },
+    "latest": {
+      "title": "Yangi vakansiyalar",
+      "subtitle": "Eng so'nggi e'lon qilingan ish o'rinlari",
+      "viewAll": "Barchasini ko'rish"
+    }
+  },
+  "jobs": {
+    "title": "Barcha vakansiyalar",
+    "searchLabel": "Qidirish",
+    "filter": {
+      "title": "Filtr",
+      "category": "Kategoriya",
+      "location": "Joylashuv",
+      "experience": "Tajriba",
+      "type": "Ish turi",
+      "salary": "Maosh",
+      "allCategories": "Barcha kategoriyalar",
+      "allExperience": "Barcha daraja",
+      "allTypes": "Barcha turlar",
+      "reset": "Filterni tozalash"
+    },
+    "notFound": "Vakansiyalar topilmadi",
+    "applyNow": "Ariza berish",
+    "saveJob": "Saqlash",
+    "saved": "Saqlangan",
+    "salary": "Maosh",
+    "experience": "Tajriba",
+    "type": "Ish turi",
+    "location": "Joylashuv",
+    "postedBy": "Joylashtirildi",
+    "postedAt": "Sana"
+  },
+  "auth": {
+    "login": {
+      "title": "Tizimga kirish",
+      "subtitle": "Hisobingizga kiring",
+      "email": "Email",
+      "password": "Parol",
+      "submit": "Kirish",
+      "noAccount": "Hisobingiz yo'qmi?",
+      "register": "Ro'yxatdan o'ting"
+    },
+    "register": {
+      "title": "Ro'yxatdan o'tish",
+      "subtitle": "Yangi hisob yarating",
+      "fullName": "To'liq ism",
+      "email": "Email",
+      "password": "Parol",
+      "role": "Ro'l",
+      "user": "Ish izlovchi",
+      "employer": "Ish beruvchi",
+      "submit": "Ro'yxatdan o'tish",
+      "hasAccount": "Hisobingiz bormi?",
+      "login": "Kiring"
+    }
+  },
+  "dashboard": {
+    "welcome": "Xush kelibsiz",
+    "profile": "Profilim",
+    "savedJobs": "Saqlangan vakansiyalar",
+    "myApplications": "Arizalarim",
+    "noSaved": "Saqlangan vakansiyalar yo'q",
+    "noApplications": "Arizalar yo'q",
+    "status": {
+      "pending": "Kutilmoqda",
+      "reviewed": "Ko'rib chiqildi",
+      "accepted": "Qabul qilindi",
+      "rejected": "Rad etildi"
+    }
+  },
+  "employer": {
+    "postJob": "Vakansiya joylashtirish",
+    "editJob": "Vakansiyani tahrirlash",
+    "myJobs": "Mening vakansiyalarim",
+    "applicants": "Nomzodlar",
+    "noJobs": "Hali vakansiya joylashtirilmagan",
+    "form": {
+      "title": "Lavozim nomi",
+      "company": "Kompaniya",
+      "location": "Joylashuv",
+      "description": "Tavsif",
+      "requirements": "Talablar (har qatorga bitta)",
+      "category": "Kategoriya",
+      "experience": "Tajriba darajasi",
+      "type": "Ish turi",
+      "salaryMin": "Minimal maosh",
+      "salaryMax": "Maksimal maosh",
+      "submit": "Joylash",
+      "update": "Yangilash"
+    }
+  },
+  "admin": {
+    "title": "Admin Panel",
+    "users": "Foydalanuvchilar",
+    "jobs": "Vakansiyalar",
+    "stats": "Statistika",
+    "totalUsers": "Jami foydalanuvchilar",
+    "totalJobs": "Jami vakansiyalar",
+    "delete": "O'chirish",
+    "confirmDelete": "Haqiqatan ham o'chirmoqchimisiz?"
+  },
+  "job": {
+    "created": "Vakansiya muvaffaqiyatli joylashtirildi",
+    "updated": "Vakansiya yangilandi",
+    "deleted": "Vakansiya o'chirildi",
+    "notFound": "Vakansiya topilmadi"
+  },
+  "user": {
+    "updated": "Profil yangilandi",
+    "deleted": "Foydalanuvchi o'chirildi"
+  },
+  "application": {
+    "submitted": "Ariza muvaffaqiyatli yuborildi",
+    "updated": "Ariza holati yangilandi",
+    "alreadyApplied": "Siz bu vakansiyaga allaqachon ariza berdingiz"
+  },
+  "common": {
+    "loading": "Yuklanmoqda...",
+    "error": "Xatolik yuz berdi",
+    "success": "Muvaffaqiyatli",
+    "cancel": "Bekor qilish",
+    "save": "Saqlash",
+    "edit": "Tahrirlash",
+    "delete": "O'chirish",
+    "back": "Orqaga",
+    "next": "Keyingi",
+    "prev": "Oldingi",
+    "noData": "Ma'lumot yo'q",
+    "required": "* majburiy",
+    "darkMode": "Tungi rejim",
+    "lightMode": "Kunduzgi rejim"
+  },
+  "experience": {
+    "no-experience": "Tajribasiz",
+    "junior": "Junior",
+    "mid": "Mid-level",
+    "senior": "Senior"
+  },
+  "jobType": {
+    "full-time": "To'liq stavka",
+    "part-time": "Yarim stavka",
+    "remote": "Masofaviy",
+    "contract": "Shartnomaviy",
+    "internship": "Amaliyot"
+  }
+}

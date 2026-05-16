@@ -1,0 +1,179 @@
+{
+  "nav": {
+    "home": "Home",
+    "jobs": "Jobs",
+    "login": "Login",
+    "register": "Register",
+    "dashboard": "Dashboard",
+    "logout": "Logout",
+    "profile": "Profile",
+    "savedJobs": "Saved",
+    "myApplications": "My Applications",
+    "postJob": "Post a Job",
+    "myJobs": "My Jobs",
+    "applicants": "Applicants",
+    "admin": "Admin Panel"
+  },
+  "home": {
+    "hero": {
+      "title": "Find Your Dream Job",
+      "subtitle": "Thousands of jobs waiting for you. Start your career today",
+      "searchPlaceholder": "Job title or company...",
+      "locationPlaceholder": "City or region",
+      "searchBtn": "Search",
+      "stats": {
+        "jobs": "Active Jobs",
+        "companies": "Companies",
+        "applicants": "Successful Hires"
+      }
+    },
+    "categories": {
+      "title": "Popular Categories",
+      "subtitle": "Find jobs by your area of expertise"
+    },
+    "latest": {
+      "title": "Latest Jobs",
+      "subtitle": "Recently posted job openings",
+      "viewAll": "View All"
+    }
+  },
+  "jobs": {
+    "title": "All Jobs",
+    "searchLabel": "Search",
+    "filter": {
+      "title": "Filters",
+      "category": "Category",
+      "location": "Location",
+      "experience": "Experience",
+      "type": "Job Type",
+      "salary": "Salary",
+      "allCategories": "All Categories",
+      "allExperience": "All Levels",
+      "allTypes": "All Types",
+      "reset": "Reset Filters"
+    },
+    "notFound": "No jobs found",
+    "applyNow": "Apply Now",
+    "saveJob": "Save",
+    "saved": "Saved",
+    "salary": "Salary",
+    "experience": "Experience",
+    "type": "Type",
+    "location": "Location",
+    "postedBy": "Posted by",
+    "postedAt": "Posted"
+  },
+  "auth": {
+    "login": {
+      "title": "Sign In",
+      "subtitle": "Sign in to your account",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign In",
+      "noAccount": "Don't have an account?",
+      "register": "Register"
+    },
+    "register": {
+      "title": "Create Account",
+      "subtitle": "Create a new account",
+      "fullName": "Full Name",
+      "email": "Email",
+      "password": "Password",
+      "role": "Role",
+      "user": "Job Seeker",
+      "employer": "Employer",
+      "submit": "Create Account",
+      "hasAccount": "Already have an account?",
+      "login": "Sign In"
+    }
+  },
+  "dashboard": {
+    "welcome": "Welcome",
+    "profile": "My Profile",
+    "savedJobs": "Saved Jobs",
+    "myApplications": "My Applications",
+    "noSaved": "No saved jobs",
+    "noApplications": "No applications yet",
+    "status": {
+      "pending": "Pending",
+      "reviewed": "Reviewed",
+      "accepted": "Accepted",
+      "rejected": "Rejected"
+    }
+  },
+  "employer": {
+    "postJob": "Post a Job",
+    "editJob": "Edit Job",
+    "myJobs": "My Jobs",
+    "applicants": "Applicants",
+    "noJobs": "No jobs posted yet",
+    "form": {
+      "title": "Job Title",
+      "company": "Company",
+      "location": "Location",
+      "description": "Description",
+      "requirements": "Requirements (one per line)",
+      "category": "Category",
+      "experience": "Experience Level",
+      "type": "Job Type",
+      "salaryMin": "Min Salary",
+      "salaryMax": "Max Salary",
+      "submit": "Post Job",
+      "update": "Update Job"
+    }
+  },
+  "admin": {
+    "title": "Admin Panel",
+    "users": "Users",
+    "jobs": "Jobs",
+    "stats": "Statistics",
+    "totalUsers": "Total Users",
+    "totalJobs": "Total Jobs",
+    "delete": "Delete",
+    "confirmDelete": "Are you sure you want to delete?"
+  },
+  "job": {
+    "created": "Job posted successfully",
+    "updated": "Job updated successfully",
+    "deleted": "Job deleted successfully",
+    "notFound": "Job not found"
+  },
+  "user": {
+    "updated": "Profile updated",
+    "deleted": "User deleted"
+  },
+  "application": {
+    "submitted": "Application submitted successfully",
+    "updated": "Application status updated",
+    "alreadyApplied": "You have already applied for this job"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "back": "Back",
+    "next": "Next",
+    "prev": "Previous",
+    "noData": "No data",
+    "required": "* required",
+    "darkMode": "Dark Mode",
+    "lightMode": "Light Mode"
+  },
+  "experience": {
+    "no-experience": "No Experience",
+    "junior": "Junior",
+    "mid": "Mid-level",
+    "senior": "Senior"
+  },
+  "jobType": {
+    "full-time": "Full-time",
+    "part-time": "Part-time",
+    "remote": "Remote",
+    "contract": "Contract",
+    "internship": "Internship"
+  }
+}
