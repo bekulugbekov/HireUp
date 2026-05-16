@@ -25,7 +25,7 @@ export default function ProfilePage() {
     avatar: null,
   });
   const [avatarPreview, setAvatarPreview] = useState(
-    user?.avatar ? `${BACKEND_URL}/${user.avatar}` : null
+    user?.avatar ? `${BACKEND_URL}/${user.avatar.replace(/\\/g, '/')}` : null
   );
   const [savingProfile, setSavingProfile] = useState(false);
 
@@ -46,7 +46,12 @@ export default function ProfilePage() {
     setSavingProfile(true);
     try {
       const res = await userService.updateProfile(profile);
-      dispatch(setUser(res.data.data));
+      const updatedUser = res.data.data;
+      dispatch(setUser(updatedUser));
+      if (updatedUser.avatar) {
+        setAvatarPreview(`${BACKEND_URL}/${updatedUser.avatar.replace(/\\/g, '/')}`);
+      }
+      setProfile((p) => ({ ...p, avatar: null }));
       if (profile.language !== user?.language) i18n.changeLanguage(profile.language);
       toast.success(t('profile.updated'));
     } catch {

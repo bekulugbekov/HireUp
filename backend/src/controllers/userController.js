@@ -10,7 +10,7 @@ exports.updateProfile = async (req, res, next) => {
       if (req.body[field] !== undefined) updates[field] = req.body[field];
     });
 
-    if (req.file) updates.avatar = req.file.path;
+    if (req.file) updates.avatar = req.file.path.replace(/\\/g, '/');
 
     const user = await User.findByIdAndUpdate(req.user._id, updates, { new: true });
     res.json({ success: true, message: req.t('user.updated'), data: user });

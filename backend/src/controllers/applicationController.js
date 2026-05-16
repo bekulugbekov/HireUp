@@ -14,7 +14,7 @@ exports.applyJob = async (req, res, next) => {
     const application = await Application.create({
       user: req.user._id,
       job: req.params.jobId,
-      resume: req.file ? req.file.path : req.body.resume,
+      resume: req.file ? req.file.path.replace(/\\/g, '/') : req.body.resume,
       coverLetter: req.body.coverLetter,
       phone: req.body.phone || '',
       telegram: req.body.telegram || '',

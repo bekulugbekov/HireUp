@@ -165,7 +165,7 @@ export default function MyJobsPage() {
                           <div className="flex items-start justify-between gap-3">
                             <div className="flex items-center gap-3">
                               {app.user?.avatar ? (
-                                <img src={`${BACKEND_URL}/${app.user.avatar}`} alt="" className="w-10 h-10 rounded-full object-cover" />
+                                <img src={`${BACKEND_URL}/${app.user.avatar.replace(/\\/g, '/')}`} alt="" className="w-10 h-10 rounded-full object-cover" />
                               ) : (
                                 <div className="w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center text-primary-700 dark:text-primary-400 font-semibold text-sm">
                                   {app.user?.fullName?.[0]?.toUpperCase()}
@@ -207,7 +207,7 @@ export default function MyJobsPage() {
                             )}
                             {app.resume && (
                               <a
-                                href={`${BACKEND_URL}/${app.resume}`}
+                                href={`${BACKEND_URL}/${app.resume.replace(/\\/g, '/')}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center gap-1.5 text-primary-600 dark:text-primary-400 hover:underline font-medium"

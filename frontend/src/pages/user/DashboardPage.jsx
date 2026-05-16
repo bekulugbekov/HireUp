@@ -153,7 +153,7 @@ export default function DashboardPage() {
                   </span>
                   {app.resume && (
                     <a
-                      href={`${BACKEND_URL}/${app.resume}`}
+                      href={`${BACKEND_URL}/${app.resume.replace(/\\/g, '/')}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1 text-xs text-primary-600 dark:text-primary-400 hover:underline font-medium"

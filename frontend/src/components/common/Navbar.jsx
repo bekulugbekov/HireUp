@@ -55,7 +55,7 @@ export default function Navbar() {
     </Link>
   );
 
-  const avatarUrl = user?.avatar ? `${BACKEND_URL}/${user.avatar}` : null;
+  const avatarUrl = user?.avatar ? `${BACKEND_URL}/${user.avatar.replace(/\\/g, '/')}` : null;
 
   return (
     <nav className="bg-white dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50">
