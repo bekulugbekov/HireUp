@@ -119,5 +119,5 @@ Barcha endpointlar Swagger orqali hujjatlangan:
 
 ## Muallif
 
-**Bekhzod Ukulubekov**
+**Azamat Ulug'bekov**
 GitHub: [@bekulugbekov](https://github.com/bekulugbekov)
