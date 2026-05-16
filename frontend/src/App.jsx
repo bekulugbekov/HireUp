@@ -8,6 +8,7 @@ import JobDetailPage from './pages/JobDetailPage';
 import LoginPage from './pages/auth/LoginPage';
 import RegisterPage from './pages/auth/RegisterPage';
 import DashboardPage from './pages/user/DashboardPage';
+import ProfilePage from './pages/user/ProfilePage';
 import PostJobPage from './pages/employer/PostJobPage';
 import MyJobsPage from './pages/employer/MyJobsPage';
 import AdminPage from './pages/admin/AdminPage';
@@ -27,6 +28,14 @@ export default function App() {
           element={
             <PrivateRoute roles={['user']}>
               <DashboardPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="profile"
+          element={
+            <PrivateRoute roles={['user', 'employer', 'admin']}>
+              <ProfilePage />
             </PrivateRoute>
           }
         />

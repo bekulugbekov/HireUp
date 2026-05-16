@@ -61,7 +61,16 @@
     "type": "Ish turi",
     "location": "Joylashuv",
     "postedBy": "Joylashtirildi",
-    "postedAt": "Sana"
+    "postedAt": "Sana",
+    "views": "ko'rishlar",
+    "skills": "Ko'nikmalar",
+    "contactInfo": "Aloqa ma'lumotlari",
+    "phone": "Telefon",
+    "telegram": "Telegram",
+    "website": "Veb-sayt",
+    "requirements": "Talablar",
+    "about": "Vakansiya haqida",
+    "applySection": "Ariza yuborish"
   },
   "auth": {
     "login": {
@@ -94,6 +103,11 @@
     "myApplications": "Arizalarim",
     "noSaved": "Saqlangan vakansiyalar yo'q",
     "noApplications": "Arizalar yo'q",
+    "withdraw": "Arizani qaytarib olish",
+    "withdrawConfirm": "Arizani qaytarib olmoqchimisiz?",
+    "downloadCV": "CV yuklab olish",
+    "appliedAt": "Ariza sanasi",
+    "yourContact": "Sizning kontaktingiz",
     "status": {
       "pending": "Kutilmoqda",
       "reviewed": "Ko'rib chiqildi",
@@ -101,26 +115,85 @@
       "rejected": "Rad etildi"
     }
   },
+  "profile": {
+    "title": "Profil sozlamalari",
+    "personalInfo": "Shaxsiy ma'lumotlar",
+    "contactInfo": "Aloqa ma'lumotlari",
+    "security": "Xavfsizlik",
+    "fullName": "To'liq ism",
+    "email": "Email",
+    "title": "Kasb / Lavozim",
+    "bio": "O'zingiz haqingizda",
+    "bioPlaceholder": "Qisqacha o'zingiz haqida yozing...",
+    "phone": "Telefon raqam",
+    "phonePlaceholder": "+998 90 123 45 67",
+    "telegram": "Telegram username",
+    "telegramPlaceholder": "@username",
+    "language": "Til",
+    "avatar": "Profil rasmi",
+    "changeAvatar": "Rasmni o'zgartirish",
+    "saveChanges": "O'zgarishlarni saqlash",
+    "changePassword": "Parolni o'zgartirish",
+    "currentPassword": "Joriy parol",
+    "newPassword": "Yangi parol",
+    "confirmPassword": "Parolni tasdiqlang",
+    "passwordMismatch": "Parollar mos kelmadi",
+    "passwordChanged": "Parol muvaffaqiyatli o'zgartirildi",
+    "updated": "Profil yangilandi"
+  },
   "employer": {
     "postJob": "Vakansiya joylashtirish",
     "editJob": "Vakansiyani tahrirlash",
     "myJobs": "Mening vakansiyalarim",
     "applicants": "Nomzodlar",
     "noJobs": "Hali vakansiya joylashtirilmagan",
+    "viewApplicants": "Nomzodlarni ko'rish",
+    "noApplicants": "Hali nomzodlar yo'q",
     "form": {
       "title": "Lavozim nomi",
       "company": "Kompaniya",
       "location": "Joylashuv",
       "description": "Tavsif",
       "requirements": "Talablar (har qatorga bitta)",
+      "skills": "Ko'nikmalar (vergul bilan ajrating)",
+      "skillsPlaceholder": "React, Node.js, MongoDB...",
       "category": "Kategoriya",
       "experience": "Tajriba darajasi",
       "type": "Ish turi",
       "salaryMin": "Minimal maosh",
       "salaryMax": "Maksimal maosh",
+      "contactPhone": "Aloqa telefoni",
+      "contactTelegram": "Telegram",
+      "contactWebsite": "Veb-sayt",
+      "contactSection": "Aloqa ma'lumotlari (ixtiyoriy)",
       "submit": "Joylash",
       "update": "Yangilash"
+    },
+    "applicant": {
+      "cv": "CV",
+      "coverLetter": "Cover Letter",
+      "phone": "Telefon",
+      "telegram": "Telegram",
+      "noCv": "CV yuklanmagan",
+      "noCoverLetter": "Cover letter yo'q"
     }
+  },
+  "application": {
+    "title": "Ariza yuborish",
+    "resume": "Resume (PDF/DOC)",
+    "coverLetter": "Cover Letter (ixtiyoriy)",
+    "coverLetterPlaceholder": "O'zingiz haqingizda qisqacha...",
+    "phone": "Telefon raqam",
+    "phonePlaceholder": "+998 90 123 45 67",
+    "telegram": "Telegram username",
+    "telegramPlaceholder": "@username",
+    "submitted": "Ariza muvaffaqiyatli yuborildi",
+    "updated": "Ariza holati yangilandi",
+    "withdrawn": "Ariza qaytarib olindi",
+    "alreadyApplied": "Siz bu vakansiyaga allaqachon ariza berdingiz",
+    "fetched": "Arizalar olindi",
+    "notFound": "Ariza topilmadi",
+    "cannotWithdraw": "Ko'rib chiqilayotgan arizani qaytarib bo'lmaydi"
   },
   "admin": {
     "title": "Admin Panel",
@@ -136,16 +209,12 @@
     "created": "Vakansiya muvaffaqiyatli joylashtirildi",
     "updated": "Vakansiya yangilandi",
     "deleted": "Vakansiya o'chirildi",
-    "notFound": "Vakansiya topilmadi"
+    "notFound": "Vakansiya topilmadi",
+    "noPermission": "Ruxsat yo'q"
   },
   "user": {
     "updated": "Profil yangilandi",
     "deleted": "Foydalanuvchi o'chirildi"
-  },
-  "application": {
-    "submitted": "Ariza muvaffaqiyatli yuborildi",
-    "updated": "Ariza holati yangilandi",
-    "alreadyApplied": "Siz bu vakansiyaga allaqachon ariza berdingiz"
   },
   "common": {
     "loading": "Yuklanmoqda...",
@@ -161,7 +230,12 @@
     "noData": "Ma'lumot yo'q",
     "required": "* majburiy",
     "darkMode": "Tungi rejim",
-    "lightMode": "Kunduzgi rejim"
+    "lightMode": "Kunduzgi rejim",
+    "confirm": "Tasdiqlash",
+    "close": "Yopish",
+    "viewAll": "Barchasini ko'rish",
+    "copy": "Nusxalash",
+    "copied": "Nusxalandi"
   },
   "experience": {
     "no-experience": "Tajribasiz",

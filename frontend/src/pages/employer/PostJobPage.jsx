@@ -17,7 +17,7 @@ export default function PostJobPage() {
   const [loading, setLoading] = useState(false);
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm({
-    defaultValues: { type: 'full-time', experience: 'junior', category: 'IT' },
+    defaultValues: { type: 'full-time', experience: 'junior', category: 'IT', currency: 'USD' },
   });
 
   useEffect(() => {
@@ -27,9 +27,13 @@ export default function PostJobPage() {
         reset({
           ...j,
           requirements: j.requirements?.join('\n') || '',
+          skills: j.skills?.join(', ') || '',
           salaryMin: j.salary?.min,
           salaryMax: j.salary?.max,
-          currency: j.salary?.currency,
+          currency: j.salary?.currency || 'USD',
+          contactPhone: j.contact?.phone || '',
+          contactTelegram: j.contact?.telegram || '',
+          contactWebsite: j.contact?.website || '',
         });
       });
     }
@@ -41,11 +45,20 @@ export default function PostJobPage() {
       const payload = {
         ...data,
         requirements: data.requirements?.split('\n').filter(Boolean) || [],
+        skills: data.skills ? data.skills.split(',').map((s) => s.trim()).filter(Boolean) : [],
         salary: { min: Number(data.salaryMin) || 0, max: Number(data.salaryMax) || 0, currency: data.currency || 'USD' },
+        contact: {
+          phone: data.contactPhone || '',
+          telegram: data.contactTelegram || '',
+          website: data.contactWebsite || '',
+        },
       };
       delete payload.salaryMin;
       delete payload.salaryMax;
       delete payload.currency;
+      delete payload.contactPhone;
+      delete payload.contactTelegram;
+      delete payload.contactWebsite;
 
       if (isEdit) {
         const res = await jobService.updateJob(id, payload);
@@ -69,23 +82,26 @@ export default function PostJobPage() {
       </h1>
 
       <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-8">
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+
+          {/* Basic info */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div>
-              <label className="label">{t('employer.form.title')}</label>
+              <label className="label">{t('employer.form.title')} *</label>
               <input {...register('title', { required: true })} className="input-field" />
-              {errors.title && <p className="error-text">*</p>}
+              {errors.title && <p className="error-text">{t('common.required')}</p>}
             </div>
             <div>
-              <label className="label">{t('employer.form.company')}</label>
+              <label className="label">{t('employer.form.company')} *</label>
               <input {...register('company', { required: true })} className="input-field" />
-              {errors.company && <p className="error-text">*</p>}
+              {errors.company && <p className="error-text">{t('common.required')}</p>}
             </div>
           </div>
 
           <div>
-            <label className="label">{t('employer.form.location')}</label>
+            <label className="label">{t('employer.form.location')} *</label>
             <input {...register('location', { required: true })} className="input-field" placeholder="Toshkent, O'zbekiston" />
+            {errors.location && <p className="error-text">{t('common.required')}</p>}
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
@@ -109,6 +125,7 @@ export default function PostJobPage() {
             </div>
           </div>
 
+          {/* Salary */}
           <div className="grid grid-cols-3 gap-3">
             <div>
               <label className="label">{t('employer.form.salaryMin')}</label>
@@ -128,15 +145,67 @@ export default function PostJobPage() {
             </div>
           </div>
 
+          {/* Description */}
           <div>
-            <label className="label">{t('employer.form.description')}</label>
+            <label className="label">{t('employer.form.description')} *</label>
             <textarea {...register('description', { required: true })} rows={5} className="input-field" />
-            {errors.description && <p className="error-text">*</p>}
+            {errors.description && <p className="error-text">{t('common.required')}</p>}
           </div>
 
+          {/* Requirements */}
           <div>
             <label className="label">{t('employer.form.requirements')}</label>
             <textarea {...register('requirements')} rows={4} className="input-field" placeholder="React bilish&#10;Node.js tajribasi&#10;Git ko'nikmasi" />
+          </div>
+
+          {/* Skills */}
+          <div>
+            <label className="label">{t('employer.form.skills')}</label>
+            <input
+              {...register('skills')}
+              className="input-field"
+              placeholder={t('employer.form.skillsPlaceholder')}
+            />
+            <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">{t('employer.form.skills')} (vergul bilan ajrating)</p>
+          </div>
+
+          {/* Contact section */}
+          <div className="border-t border-gray-100 dark:border-gray-700 pt-6">
+            <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-4 flex items-center gap-2">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              {t('employer.form.contactSection')}
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div>
+                <label className="label">{t('employer.form.contactPhone')}</label>
+                <input
+                  type="tel"
+                  {...register('contactPhone')}
+                  className="input-field"
+                  placeholder="+998 90 123 45 67"
+                />
+              </div>
+              <div>
+                <label className="label">{t('employer.form.contactTelegram')}</label>
+                <input
+                  type="text"
+                  {...register('contactTelegram')}
+                  className="input-field"
+                  placeholder="@username"
+                />
+              </div>
+              <div>
+                <label className="label">{t('employer.form.contactWebsite')}</label>
+                <input
+                  type="url"
+                  {...register('contactWebsite')}
+                  className="input-field"
+                  placeholder="https://company.uz"
+                />
+              </div>
+            </div>
           </div>
 
           <div className="flex gap-3 pt-2">

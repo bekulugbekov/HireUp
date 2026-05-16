@@ -16,6 +16,8 @@ exports.applyJob = async (req, res, next) => {
       job: req.params.jobId,
       resume: req.file ? req.file.path : req.body.resume,
       coverLetter: req.body.coverLetter,
+      phone: req.body.phone || '',
+      telegram: req.body.telegram || '',
     });
 
     res.status(201).json({ success: true, message: req.t('application.submitted'), data: application });
@@ -27,7 +29,7 @@ exports.applyJob = async (req, res, next) => {
 exports.getMyApplications = async (req, res, next) => {
   try {
     const applications = await Application.find({ user: req.user._id })
-      .populate('job', 'title company location salary type')
+      .populate('job', 'title company location salary type contact')
       .sort({ createdAt: -1 });
     res.json({ success: true, message: req.t('application.fetched'), data: applications });
   } catch (err) {
@@ -45,7 +47,7 @@ exports.getJobApplications = async (req, res, next) => {
     }
 
     const applications = await Application.find({ job: req.params.jobId })
-      .populate('user', 'fullName email avatar')
+      .populate('user', 'fullName email avatar phone telegram')
       .sort({ createdAt: -1 });
 
     res.json({ success: true, data: applications });
@@ -63,6 +65,22 @@ exports.updateApplicationStatus = async (req, res, next) => {
     );
     if (!application) return res.status(404).json({ success: false, message: req.t('application.notFound') });
     res.json({ success: true, message: req.t('application.updated'), data: application });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.withdrawApplication = async (req, res, next) => {
+  try {
+    const application = await Application.findOne({ _id: req.params.id, user: req.user._id });
+    if (!application) return res.status(404).json({ success: false, message: req.t('application.notFound') });
+
+    if (application.status !== 'pending') {
+      return res.status(400).json({ success: false, message: req.t('application.cannotWithdraw') });
+    }
+
+    await application.deleteOne();
+    res.json({ success: true, message: req.t('application.withdrawn') });
   } catch (err) {
     next(err);
   }

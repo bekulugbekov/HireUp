@@ -7,4 +7,5 @@ export const jobService = {
   updateJob: (id, data) => api.put(`/jobs/${id}`, data),
   deleteJob: (id) => api.delete(`/jobs/${id}`),
   getMyJobs: () => api.get('/jobs/my'),
+  toggleActive: (id) => api.patch(`/jobs/${id}/toggle`),
 };

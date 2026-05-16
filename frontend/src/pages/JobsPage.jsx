@@ -115,7 +115,7 @@ export default function JobsPage() {
           ) : (
             <>
               <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
-                {pagination?.total} ta vakansiya topildi
+                {pagination?.total} {t('jobs.title').toLowerCase()} ({t('jobs.filter.title').toLowerCase()})
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 {jobs.map((job) => <JobCard key={job._id} job={job} />)}

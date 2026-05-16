@@ -61,7 +61,16 @@
     "type": "Type",
     "location": "Location",
     "postedBy": "Posted by",
-    "postedAt": "Posted"
+    "postedAt": "Posted",
+    "views": "views",
+    "skills": "Skills",
+    "contactInfo": "Contact Information",
+    "phone": "Phone",
+    "telegram": "Telegram",
+    "website": "Website",
+    "requirements": "Requirements",
+    "about": "About the Job",
+    "applySection": "Apply for this Job"
   },
   "auth": {
     "login": {
@@ -94,6 +103,11 @@
     "myApplications": "My Applications",
     "noSaved": "No saved jobs",
     "noApplications": "No applications yet",
+    "withdraw": "Withdraw Application",
+    "withdrawConfirm": "Are you sure you want to withdraw this application?",
+    "downloadCV": "Download CV",
+    "appliedAt": "Applied on",
+    "yourContact": "Your Contact Info",
     "status": {
       "pending": "Pending",
       "reviewed": "Reviewed",
@@ -101,26 +115,85 @@
       "rejected": "Rejected"
     }
   },
+  "profile": {
+    "title": "Profile Settings",
+    "personalInfo": "Personal Information",
+    "contactInfo": "Contact Information",
+    "security": "Security",
+    "fullName": "Full Name",
+    "email": "Email",
+    "title": "Job Title / Position",
+    "bio": "About Me",
+    "bioPlaceholder": "Write a short bio about yourself...",
+    "phone": "Phone Number",
+    "phonePlaceholder": "+998 90 123 45 67",
+    "telegram": "Telegram Username",
+    "telegramPlaceholder": "@username",
+    "language": "Language",
+    "avatar": "Profile Picture",
+    "changeAvatar": "Change Photo",
+    "saveChanges": "Save Changes",
+    "changePassword": "Change Password",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
+    "passwordMismatch": "Passwords do not match",
+    "passwordChanged": "Password changed successfully",
+    "updated": "Profile updated"
+  },
   "employer": {
     "postJob": "Post a Job",
     "editJob": "Edit Job",
     "myJobs": "My Jobs",
     "applicants": "Applicants",
     "noJobs": "No jobs posted yet",
+    "viewApplicants": "View Applicants",
+    "noApplicants": "No applicants yet",
     "form": {
       "title": "Job Title",
       "company": "Company",
       "location": "Location",
       "description": "Description",
       "requirements": "Requirements (one per line)",
+      "skills": "Skills (comma separated)",
+      "skillsPlaceholder": "React, Node.js, MongoDB...",
       "category": "Category",
       "experience": "Experience Level",
       "type": "Job Type",
       "salaryMin": "Min Salary",
       "salaryMax": "Max Salary",
+      "contactPhone": "Contact Phone",
+      "contactTelegram": "Telegram",
+      "contactWebsite": "Website",
+      "contactSection": "Contact Details (optional)",
       "submit": "Post Job",
       "update": "Update Job"
+    },
+    "applicant": {
+      "cv": "CV",
+      "coverLetter": "Cover Letter",
+      "phone": "Phone",
+      "telegram": "Telegram",
+      "noCv": "No CV uploaded",
+      "noCoverLetter": "No cover letter"
     }
+  },
+  "application": {
+    "title": "Apply for this Job",
+    "resume": "Resume (PDF/DOC)",
+    "coverLetter": "Cover Letter (optional)",
+    "coverLetterPlaceholder": "Tell us a bit about yourself...",
+    "phone": "Phone Number",
+    "phonePlaceholder": "+998 90 123 45 67",
+    "telegram": "Telegram Username",
+    "telegramPlaceholder": "@username",
+    "submitted": "Application submitted successfully",
+    "updated": "Application status updated",
+    "withdrawn": "Application withdrawn successfully",
+    "alreadyApplied": "You have already applied for this job",
+    "fetched": "Applications fetched",
+    "notFound": "Application not found",
+    "cannotWithdraw": "Cannot withdraw an application that is already under review"
   },
   "admin": {
     "title": "Admin Panel",
@@ -136,16 +209,12 @@
     "created": "Job posted successfully",
     "updated": "Job updated successfully",
     "deleted": "Job deleted successfully",
-    "notFound": "Job not found"
+    "notFound": "Job not found",
+    "noPermission": "Permission denied"
   },
   "user": {
     "updated": "Profile updated",
     "deleted": "User deleted"
-  },
-  "application": {
-    "submitted": "Application submitted successfully",
-    "updated": "Application status updated",
-    "alreadyApplied": "You have already applied for this job"
   },
   "common": {
     "loading": "Loading...",
@@ -161,7 +230,12 @@
     "noData": "No data",
     "required": "* required",
     "darkMode": "Dark Mode",
-    "lightMode": "Light Mode"
+    "lightMode": "Light Mode",
+    "confirm": "Confirm",
+    "close": "Close",
+    "viewAll": "View All",
+    "copy": "Copy",
+    "copied": "Copied!"
   },
   "experience": {
     "no-experience": "No Experience",

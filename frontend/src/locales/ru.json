@@ -61,7 +61,16 @@
     "type": "Тип",
     "location": "Место",
     "postedBy": "Размещено",
-    "postedAt": "Дата"
+    "postedAt": "Дата",
+    "views": "просмотров",
+    "skills": "Навыки",
+    "contactInfo": "Контактная информация",
+    "phone": "Телефон",
+    "telegram": "Telegram",
+    "website": "Веб-сайт",
+    "requirements": "Требования",
+    "about": "О вакансии",
+    "applySection": "Подать заявку"
   },
   "auth": {
     "login": {
@@ -94,6 +103,11 @@
     "myApplications": "Мои заявки",
     "noSaved": "Нет сохранённых вакансий",
     "noApplications": "Нет заявок",
+    "withdraw": "Отозвать заявку",
+    "withdrawConfirm": "Вы хотите отозвать заявку?",
+    "downloadCV": "Скачать резюме",
+    "appliedAt": "Дата подачи",
+    "yourContact": "Ваши контакты",
     "status": {
       "pending": "На рассмотрении",
       "reviewed": "Рассмотрена",
@@ -101,26 +115,85 @@
       "rejected": "Отклонена"
     }
   },
+  "profile": {
+    "title": "Настройки профиля",
+    "personalInfo": "Личные данные",
+    "contactInfo": "Контактная информация",
+    "security": "Безопасность",
+    "fullName": "Полное имя",
+    "email": "Email",
+    "title": "Профессия / Должность",
+    "bio": "О себе",
+    "bioPlaceholder": "Напишите кратко о себе...",
+    "phone": "Номер телефона",
+    "phonePlaceholder": "+998 90 123 45 67",
+    "telegram": "Telegram username",
+    "telegramPlaceholder": "@username",
+    "language": "Язык",
+    "avatar": "Фото профиля",
+    "changeAvatar": "Изменить фото",
+    "saveChanges": "Сохранить изменения",
+    "changePassword": "Изменить пароль",
+    "currentPassword": "Текущий пароль",
+    "newPassword": "Новый пароль",
+    "confirmPassword": "Подтвердите пароль",
+    "passwordMismatch": "Пароли не совпадают",
+    "passwordChanged": "Пароль успешно изменён",
+    "updated": "Профиль обновлён"
+  },
   "employer": {
     "postJob": "Разместить вакансию",
     "editJob": "Редактировать вакансию",
     "myJobs": "Мои вакансии",
     "applicants": "Кандидаты",
     "noJobs": "Вакансии ещё не размещены",
+    "viewApplicants": "Просмотреть кандидатов",
+    "noApplicants": "Кандидатов пока нет",
     "form": {
       "title": "Название должности",
       "company": "Компания",
       "location": "Местоположение",
       "description": "Описание",
       "requirements": "Требования (каждая строка — одно требование)",
+      "skills": "Навыки (через запятую)",
+      "skillsPlaceholder": "React, Node.js, MongoDB...",
       "category": "Категория",
       "experience": "Уровень опыта",
       "type": "Тип работы",
       "salaryMin": "Минимальная зарплата",
       "salaryMax": "Максимальная зарплата",
+      "contactPhone": "Контактный телефон",
+      "contactTelegram": "Telegram",
+      "contactWebsite": "Веб-сайт",
+      "contactSection": "Контактные данные (необязательно)",
       "submit": "Разместить",
       "update": "Обновить"
+    },
+    "applicant": {
+      "cv": "Резюме",
+      "coverLetter": "Сопроводительное письмо",
+      "phone": "Телефон",
+      "telegram": "Telegram",
+      "noCv": "Резюме не загружено",
+      "noCoverLetter": "Письмо отсутствует"
     }
+  },
+  "application": {
+    "title": "Подать заявку",
+    "resume": "Резюме (PDF/DOC)",
+    "coverLetter": "Сопроводительное письмо (необязательно)",
+    "coverLetterPlaceholder": "Расскажите кратко о себе...",
+    "phone": "Номер телефона",
+    "phonePlaceholder": "+998 90 123 45 67",
+    "telegram": "Telegram username",
+    "telegramPlaceholder": "@username",
+    "submitted": "Заявка успешно отправлена",
+    "updated": "Статус заявки обновлён",
+    "withdrawn": "Заявка отозвана",
+    "alreadyApplied": "Вы уже подали заявку на эту вакансию",
+    "fetched": "Заявки получены",
+    "notFound": "Заявка не найдена",
+    "cannotWithdraw": "Нельзя отозвать заявку, которая уже на рассмотрении"
   },
   "admin": {
     "title": "Панель администратора",
@@ -136,16 +209,12 @@
     "created": "Вакансия успешно размещена",
     "updated": "Вакансия обновлена",
     "deleted": "Вакансия удалена",
-    "notFound": "Вакансия не найдена"
+    "notFound": "Вакансия не найдена",
+    "noPermission": "Нет доступа"
   },
   "user": {
     "updated": "Профиль обновлён",
     "deleted": "Пользователь удалён"
-  },
-  "application": {
-    "submitted": "Заявка успешно отправлена",
-    "updated": "Статус заявки обновлён",
-    "alreadyApplied": "Вы уже подали заявку на эту вакансию"
   },
   "common": {
     "loading": "Загрузка...",
@@ -161,7 +230,12 @@
     "noData": "Нет данных",
     "required": "* обязательно",
     "darkMode": "Тёмная тема",
-    "lightMode": "Светлая тема"
+    "lightMode": "Светлая тема",
+    "confirm": "Подтвердить",
+    "close": "Закрыть",
+    "viewAll": "Смотреть все",
+    "copy": "Копировать",
+    "copied": "Скопировано"
   },
   "experience": {
     "no-experience": "Без опыта",

@@ -6,7 +6,11 @@
     "unauthorized": "Unauthorized. Please login",
     "forbidden": "Access denied",
     "tokenExpired": "Session expired. Please login again",
-    "emailExists": "Email already registered"
+    "emailExists": "Email already registered",
+    "passwordRequired": "Current and new password are required",
+    "passwordTooShort": "New password must be at least 6 characters",
+    "wrongPassword": "Current password is incorrect",
+    "passwordChanged": "Password changed successfully"
   },
   "user": {
     "notFound": "User not found",
@@ -19,14 +23,18 @@
     "deleted": "Job deleted successfully",
     "notFound": "Job not found",
     "fetched": "Jobs fetched successfully",
-    "noPermission": "You can only manage your own job posts"
+    "noPermission": "You can only manage your own job posts",
+    "activated": "Job activated successfully",
+    "deactivated": "Job deactivated successfully"
   },
   "application": {
     "submitted": "Application submitted successfully",
     "alreadyApplied": "You have already applied for this job",
     "fetched": "Applications fetched successfully",
     "notFound": "Application not found",
-    "updated": "Application status updated"
+    "updated": "Application status updated",
+    "withdrawn": "Application withdrawn successfully",
+    "cannotWithdraw": "Cannot withdraw an application that is already under review"
   },
   "validation": {
     "required": "This field is required",

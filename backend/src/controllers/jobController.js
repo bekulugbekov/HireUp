@@ -3,7 +3,7 @@ const Job = require('../models/Job');
 
 exports.getJobs = async (req, res, next) => {
   try {
-    const { search, category, location, experience, type, minSalary, maxSalary, page = 1, limit = 10 } = req.query;
+    const { search, category, location, experience, type, minSalary, maxSalary, skills, page = 1, limit = 10 } = req.query;
     const filter = { isActive: true };
 
     if (search) filter.$text = { $search: search };
@@ -13,6 +13,7 @@ exports.getJobs = async (req, res, next) => {
     if (type) filter.type = type;
     if (minSalary) filter['salary.min'] = { $gte: Number(minSalary) };
     if (maxSalary) filter['salary.max'] = { $lte: Number(maxSalary) };
+    if (skills) filter.skills = { $in: skills.split(',').map((s) => s.trim()) };
 
     const skip = (Number(page) - 1) * Number(limit);
     const total = await Job.countDocuments(filter);
@@ -40,7 +41,12 @@ exports.getJobs = async (req, res, next) => {
 
 exports.getJob = async (req, res, next) => {
   try {
-    const job = await Job.findById(req.params.id).populate('createdBy', 'fullName email avatar');
+    const job = await Job.findByIdAndUpdate(
+      req.params.id,
+      { $inc: { viewCount: 1 } },
+      { new: true }
+    ).populate('createdBy', 'fullName email avatar phone telegram');
+
     if (!job) return res.status(404).json({ success: false, message: req.t('job.notFound') });
     res.json({ success: true, data: job });
   } catch (err) {
@@ -98,6 +104,23 @@ exports.getMyJobs = async (req, res, next) => {
   try {
     const jobs = await Job.find({ createdBy: req.user._id }).sort({ createdAt: -1 });
     res.json({ success: true, data: jobs });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.toggleJobActive = async (req, res, next) => {
+  try {
+    const job = await Job.findById(req.params.id);
+    if (!job) return res.status(404).json({ success: false, message: req.t('job.notFound') });
+
+    if (job.createdBy.toString() !== req.user._id.toString() && req.user.role !== 'admin') {
+      return res.status(403).json({ success: false, message: req.t('job.noPermission') });
+    }
+
+    job.isActive = !job.isActive;
+    await job.save();
+    res.json({ success: true, message: job.isActive ? req.t('job.activated') : req.t('job.deactivated'), data: job });
   } catch (err) {
     next(err);
   }

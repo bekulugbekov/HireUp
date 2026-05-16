@@ -6,6 +6,7 @@ const {
   updateJob,
   deleteJob,
   getMyJobs,
+  toggleJobActive,
 } = require('../controllers/jobController');
 const { protect, authorize } = require('../middleware/auth');
 const { jobValidator } = require('../validators/jobValidator');
@@ -143,5 +144,6 @@ router.put('/:id', protect, authorize('employer', 'admin'), updateJob);
  *       200: { description: Job deleted }
  */
 router.delete('/:id', protect, authorize('employer', 'admin'), deleteJob);
+router.patch('/:id/toggle', protect, authorize('employer', 'admin'), toggleJobActive);
 
 module.exports = router;

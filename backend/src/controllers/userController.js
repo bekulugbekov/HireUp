@@ -1,9 +1,10 @@
 const User = require('../models/User');
 const Job = require('../models/Job');
+const bcrypt = require('bcryptjs');
 
 exports.updateProfile = async (req, res, next) => {
   try {
-    const allowed = ['fullName', 'language'];
+    const allowed = ['fullName', 'language', 'phone', 'telegram', 'bio', 'title'];
     const updates = {};
     allowed.forEach((field) => {
       if (req.body[field] !== undefined) updates[field] = req.body[field];
@@ -13,6 +14,30 @@ exports.updateProfile = async (req, res, next) => {
 
     const user = await User.findByIdAndUpdate(req.user._id, updates, { new: true });
     res.json({ success: true, message: req.t('user.updated'), data: user });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.changePassword = async (req, res, next) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+    if (!currentPassword || !newPassword) {
+      return res.status(400).json({ success: false, message: req.t('auth.passwordRequired') });
+    }
+    if (newPassword.length < 6) {
+      return res.status(400).json({ success: false, message: req.t('auth.passwordTooShort') });
+    }
+
+    const user = await User.findById(req.user._id).select('+password');
+    const isMatch = await user.comparePassword(currentPassword);
+    if (!isMatch) {
+      return res.status(400).json({ success: false, message: req.t('auth.wrongPassword') });
+    }
+
+    user.password = newPassword;
+    await user.save();
+    res.json({ success: true, message: req.t('auth.passwordChanged') });
   } catch (err) {
     next(err);
   }

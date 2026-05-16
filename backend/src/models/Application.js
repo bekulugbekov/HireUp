@@ -14,6 +14,8 @@ const applicationSchema = new mongoose.Schema(
     },
     resume: { type: String, default: '' },
     coverLetter: { type: String, default: '' },
+    phone: { type: String, default: '' },
+    telegram: { type: String, default: '' },
     status: {
       type: String,
       enum: ['pending', 'reviewed', 'accepted', 'rejected'],

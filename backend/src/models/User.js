@@ -13,6 +13,10 @@ const userSchema = new mongoose.Schema(
     },
     avatar: { type: String, default: '' },
     language: { type: String, enum: ['uz', 'ru', 'en'], default: 'uz' },
+    phone: { type: String, default: '' },
+    telegram: { type: String, default: '' },
+    bio: { type: String, default: '', maxlength: 500 },
+    title: { type: String, default: '' },
     savedJobs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Job' }],
   },
   { timestamps: true }

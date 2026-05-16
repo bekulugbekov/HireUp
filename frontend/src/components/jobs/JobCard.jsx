@@ -15,7 +15,7 @@ export default function JobCard({ job, saved = false, onSaveToggle }) {
 
   const handleSave = async (e) => {
     e.preventDefault();
-    if (!isAuthenticated) { toast.error('Iltimos, avval kiring'); return; }
+    if (!isAuthenticated) { toast.error(t('common.error')); return; }
     try {
       await userService.saveJob(job._id);
       onSaveToggle?.(job._id);
@@ -26,7 +26,7 @@ export default function JobCard({ job, saved = false, onSaveToggle }) {
 
   return (
     <Link to={`/jobs/${job._id}`} className="block group">
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-5 hover:shadow-md hover:border-primary-300 dark:hover:border-primary-600 transition-all duration-200">
+      <div className="h-full bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-5 hover:shadow-md hover:border-primary-300 dark:hover:border-primary-600 transition-all duration-200 flex flex-col">
         <div className="flex justify-between items-start gap-3">
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-2">
@@ -35,10 +35,10 @@ export default function JobCard({ job, saved = false, onSaveToggle }) {
                 {job.category}
               </span>
             </div>
-            <h3 className="font-semibold text-gray-900 dark:text-white text-base group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors truncate">
+            <h3 className="font-semibold text-gray-900 dark:text-white text-base group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors line-clamp-2">
               {job.title}
             </h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{job.company}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 truncate">{job.company}</p>
           </div>
           {isUser && (
             <button
@@ -74,16 +74,41 @@ export default function JobCard({ job, saved = false, onSaveToggle }) {
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
               </svg>
-              {job.salary.min.toLocaleString()} – {job.salary.max.toLocaleString()} {job.salary.currency}
+              {job.salary.min.toLocaleString()}–{job.salary.max.toLocaleString()} {job.salary.currency}
             </span>
           )}
         </div>
 
-        <div className="mt-3 pt-3 border-t border-gray-100 dark:border-gray-700 flex items-center justify-between">
+        {/* Skills */}
+        {job.skills?.length > 0 && (
+          <div className="mt-3 flex flex-wrap gap-1.5">
+            {job.skills.slice(0, 4).map((skill, i) => (
+              <span key={i} className="text-xs px-2 py-0.5 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-full border border-blue-100 dark:border-blue-800">
+                {skill}
+              </span>
+            ))}
+            {job.skills.length > 4 && (
+              <span className="text-xs px-2 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 rounded-full">
+                +{job.skills.length - 4}
+              </span>
+            )}
+          </div>
+        )}
+
+        <div className="mt-auto pt-3 border-t border-gray-100 dark:border-gray-700 flex items-center justify-between">
           <span className="text-xs text-gray-400">{t(`experience.${job.experience}`)}</span>
-          <span className="text-xs text-gray-400">
-            {new Date(job.createdAt).toLocaleDateString()}
-          </span>
+          <div className="flex items-center gap-2 text-xs text-gray-400">
+            {job.viewCount > 0 && (
+              <span className="flex items-center gap-1">
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+                {job.viewCount}
+              </span>
+            )}
+            <span>{new Date(job.createdAt).toLocaleDateString()}</span>
+          </div>
         </div>
       </div>
     </Link>

@@ -37,6 +37,13 @@ const jobSchema = new mongoose.Schema(
       enum: ['full-time', 'part-time', 'remote', 'contract', 'internship'],
       default: 'full-time',
     },
+    skills: [{ type: String, trim: true }],
+    contact: {
+      phone: { type: String, default: '' },
+      telegram: { type: String, default: '' },
+      website: { type: String, default: '' },
+    },
+    viewCount: { type: Number, default: 0 },
     isActive: { type: Boolean, default: true },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,

@@ -4,6 +4,7 @@ const {
   getMyApplications,
   getJobApplications,
   updateApplicationStatus,
+  withdrawApplication,
 } = require('../controllers/applicationController');
 const { protect, authorize } = require('../middleware/auth');
 const upload = require('../middleware/upload');
@@ -96,5 +97,6 @@ router.post('/:jobId', protect, authorize('user'), upload.single('resume'), appl
  *       200: { description: Status updated }
  */
 router.patch('/:id/status', protect, authorize('employer', 'admin'), updateApplicationStatus);
+router.delete('/:id', protect, authorize('user'), withdrawApplication);
 
 module.exports = router;

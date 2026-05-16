@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const {
   updateProfile,
+  changePassword,
   saveJob,
   getSavedJobs,
   getAllUsers,
@@ -11,6 +12,7 @@ const { protect, authorize } = require('../middleware/auth');
 const upload = require('../middleware/upload');
 
 router.put('/profile', protect, upload.single('avatar'), updateProfile);
+router.patch('/change-password', protect, changePassword);
 router.post('/saved/:jobId', protect, saveJob);
 router.get('/saved', protect, getSavedJobs);
 
