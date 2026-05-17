@@ -1,5 +1,6 @@
 const Message = require('../models/Message');
 const User = require('../models/User');
+const Job = require('../models/Job');
 const mongoose = require('mongoose');
 
 exports.sendMessage = async (req, res, next) => {
@@ -38,23 +39,22 @@ exports.getConversations = async (req, res, next) => {
   try {
     const userId = new mongoose.Types.ObjectId(req.user._id);
 
+    // Group messages by conversation partner, get latest message per partner
     const conversations = await Message.aggregate([
       {
-        $match: {
-          $or: [{ sender: userId }, { receiver: userId }],
-        },
+        $match: { $or: [{ sender: userId }, { receiver: userId }] },
       },
       { $sort: { createdAt: -1 } },
       {
         $addFields: {
-          otherUser: {
+          otherUserId: {
             $cond: [{ $eq: ['$sender', userId] }, '$receiver', '$sender'],
           },
         },
       },
       {
         $group: {
-          _id: '$otherUser',
+          _id: '$otherUserId',
           lastMessage: { $first: '$$ROOT' },
           unreadCount: {
             $sum: {
@@ -70,12 +70,35 @@ exports.getConversations = async (req, res, next) => {
       { $sort: { 'lastMessage.createdAt': -1 } },
     ]);
 
-    await Message.populate(conversations, [
-      { path: '_id', model: 'User', select: 'fullName avatar title' },
-      { path: 'lastMessage.job', model: 'Job', select: 'title company' },
+    if (conversations.length === 0) {
+      return res.json({ success: true, data: [] });
+    }
+
+    // Batch fetch partner users and jobs
+    const partnerIds = conversations.map((c) => c._id);
+    const jobIds = conversations
+      .filter((c) => c.lastMessage.job)
+      .map((c) => c.lastMessage.job);
+
+    const [partners, jobs] = await Promise.all([
+      User.find({ _id: { $in: partnerIds } }).select('fullName avatar title').lean(),
+      jobIds.length ? Job.find({ _id: { $in: jobIds } }).select('title company').lean() : Promise.resolve([]),
     ]);
 
-    res.json({ success: true, data: conversations });
+    const partnersMap = Object.fromEntries(partners.map((u) => [u._id.toString(), u]));
+    const jobsMap = Object.fromEntries(jobs.map((j) => [j._id.toString(), j]));
+
+    const result = conversations.map((conv) => ({
+      partnerId: conv._id.toString(),
+      partner: partnersMap[conv._id.toString()] || null,
+      unreadCount: conv.unreadCount,
+      lastMessage: {
+        ...conv.lastMessage,
+        job: conv.lastMessage.job ? (jobsMap[conv.lastMessage.job.toString()] || null) : null,
+      },
+    }));
+
+    res.json({ success: true, data: result });
   } catch (err) {
     next(err);
   }
@@ -97,6 +120,7 @@ exports.getMessages = async (req, res, next) => {
       .populate('job', 'title company')
       .sort({ createdAt: 1 });
 
+    // Mark incoming messages as read
     await Message.updateMany(
       { sender: userId, receiver: myId, isRead: false },
       { isRead: true }
