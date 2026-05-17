@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchJob } from '../store/slices/jobsSlice';
 import { applicationService } from '../services/applicationService';
 import { userService } from '../services/userService';
+import { messageService } from '../services/messageService';
 import { useAuth } from '../hooks/useAuth';
 import Spinner from '../components/common/Spinner';
 import toast from 'react-hot-toast';
@@ -23,6 +24,9 @@ export default function JobDetailPage() {
   const { isAuthenticated, isUser, user } = useAuth();
   const [applying, setApplying] = useState(false);
   const [showForm, setShowForm] = useState(false);
+  const [showMsgModal, setShowMsgModal] = useState(false);
+  const [msgContent, setMsgContent] = useState('');
+  const [sendingMsg, setSendingMsg] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [form, setForm] = useState({ resume: null, coverLetter: '', phone: '', telegram: '' });
 
@@ -44,6 +48,28 @@ export default function JobDetailPage() {
       toast.success(isSaved ? t('jobs.saveJob') : t('jobs.saved'));
     } catch {
       toast.error(t('common.error'));
+    }
+  };
+
+  const handleSendMessage = async (e) => {
+    e.preventDefault();
+    if (!isAuthenticated) { navigate('/login'); return; }
+    if (!msgContent.trim()) return;
+    setSendingMsg(true);
+    try {
+      await messageService.send({
+        receiverId: job.createdBy._id,
+        content: msgContent.trim(),
+        jobId: job._id,
+      });
+      toast.success(t('messages.sent'));
+      setShowMsgModal(false);
+      setMsgContent('');
+      navigate(`/messages?with=${job.createdBy._id}`);
+    } catch (err) {
+      toast.error(err.response?.data?.message || t('common.error'));
+    } finally {
+      setSendingMsg(false);
     }
   };
 
@@ -98,7 +124,7 @@ export default function JobDetailPage() {
               <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{job.title}</h1>
               <p className="text-lg text-gray-500 dark:text-gray-400 mt-1">{job.company}</p>
             </div>
-            <div className="flex items-start gap-2 shrink-0">
+            <div className="flex items-start gap-2 shrink-0 flex-wrap">
               {isUser && (
                 <button
                   onClick={handleSave}
@@ -112,6 +138,14 @@ export default function JobDetailPage() {
                   <svg className="w-5 h-5" fill={isSaved ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
                   </svg>
+                </button>
+              )}
+              {isUser && (
+                <button onClick={() => setShowMsgModal(true)} className="btn-secondary">
+                  <svg className="w-4 h-4 mr-1.5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  </svg>
+                  {t('messages.sendMessage')}
                 </button>
               )}
               {isUser && (
@@ -202,7 +236,7 @@ export default function JobDetailPage() {
           )}
 
           {/* Contact Info */}
-          {hasContact && (
+          {(hasContact || job.createdBy?.phone || job.createdBy?.telegram) && (
             <div className="bg-gray-50 dark:bg-gray-700/30 rounded-xl p-5">
               <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">{t('jobs.contactInfo')}</h2>
               <div className="space-y-3">
@@ -245,6 +279,33 @@ export default function JobDetailPage() {
                     </div>
                   </a>
                 )}
+                {/* Employer profile contacts as fallback */}
+                {!job.contact?.phone && job.createdBy?.phone && (
+                  <a href={`tel:${job.createdBy.phone}`} className="flex items-center gap-3 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors group">
+                    <span className="w-9 h-9 bg-white dark:bg-gray-700 rounded-lg flex items-center justify-center shadow-sm border border-gray-200 dark:border-gray-600 group-hover:border-primary-300 transition-colors">
+                      <svg className="w-4 h-4 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                      </svg>
+                    </span>
+                    <div>
+                      <p className="text-xs text-gray-400 dark:text-gray-500">{t('jobs.phone')}</p>
+                      <p className="font-medium">{job.createdBy.phone}</p>
+                    </div>
+                  </a>
+                )}
+                {!job.contact?.telegram && job.createdBy?.telegram && (
+                  <a href={`https://t.me/${job.createdBy.telegram.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-gray-700 dark:text-gray-300 hover:text-blue-500 transition-colors group">
+                    <span className="w-9 h-9 bg-white dark:bg-gray-700 rounded-lg flex items-center justify-center shadow-sm border border-gray-200 dark:border-gray-600 group-hover:border-blue-300 transition-colors">
+                      <svg className="w-4 h-4 text-blue-500" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-1.97 9.289c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.932z" />
+                      </svg>
+                    </span>
+                    <div>
+                      <p className="text-xs text-gray-400 dark:text-gray-500">{t('jobs.telegram')}</p>
+                      <p className="font-medium">{job.createdBy.telegram}</p>
+                    </div>
+                  </a>
+                )}
               </div>
             </div>
           )}
@@ -256,6 +317,47 @@ export default function JobDetailPage() {
           </div>
         </div>
       </div>
+
+      {/* Message Modal */}
+      {showMsgModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl w-full max-w-md border border-gray-200 dark:border-gray-700">
+            <div className="flex items-center justify-between p-5 border-b border-gray-100 dark:border-gray-700">
+              <div>
+                <h3 className="font-semibold text-gray-900 dark:text-white">{t('messages.sendMessage')}</h3>
+                <p className="text-xs text-gray-400 mt-0.5">{t('messages.to')}: {job.createdBy?.fullName}</p>
+              </div>
+              <button onClick={() => setShowMsgModal(false)} className="p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-400">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <form onSubmit={handleSendMessage} className="p-5 space-y-4">
+              <div className="text-xs text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20 px-3 py-1.5 rounded-lg">
+                {job.title} · {job.company}
+              </div>
+              <textarea
+                value={msgContent}
+                onChange={(e) => setMsgContent(e.target.value)}
+                rows={4}
+                className="input-field"
+                placeholder={t('messages.placeholder')}
+                autoFocus
+                required
+              />
+              <div className="flex gap-3">
+                <button type="submit" disabled={sendingMsg || !msgContent.trim()} className="btn-primary disabled:opacity-60 flex-1">
+                  {sendingMsg ? t('common.loading') : t('messages.send')}
+                </button>
+                <button type="button" onClick={() => setShowMsgModal(false)} className="btn-secondary">
+                  {t('common.cancel')}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
       {/* Apply Form */}
       {showForm && (

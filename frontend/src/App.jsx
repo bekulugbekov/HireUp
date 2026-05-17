@@ -12,6 +12,7 @@ import ProfilePage from './pages/user/ProfilePage';
 import PostJobPage from './pages/employer/PostJobPage';
 import MyJobsPage from './pages/employer/MyJobsPage';
 import AdminPage from './pages/admin/AdminPage';
+import MessagesPage from './pages/MessagesPage';
 
 export default function App() {
   return (
@@ -70,6 +71,14 @@ export default function App() {
           element={
             <PrivateRoute roles={['admin']}>
               <AdminPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="messages"
+          element={
+            <PrivateRoute roles={['user', 'employer', 'admin']}>
+              <MessagesPage />
             </PrivateRoute>
           }
         />

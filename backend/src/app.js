@@ -15,6 +15,7 @@ const authRoutes = require('./routes/auth');
 const jobRoutes = require('./routes/jobs');
 const applicationRoutes = require('./routes/applications');
 const userRoutes = require('./routes/users');
+const messageRoutes = require('./routes/messages');
 
 const app = express();
 
@@ -37,7 +38,10 @@ app.use(cors({
 app.use(morgan('dev'));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
-app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
+app.use('/uploads', (req, res, next) => {
+  res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+  next();
+}, express.static(path.join(__dirname, '..', 'uploads')));
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -52,6 +56,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/jobs', jobRoutes);
 app.use('/api/applications', applicationRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/messages', messageRoutes);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 

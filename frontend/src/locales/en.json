@@ -12,7 +12,22 @@
     "postJob": "Post a Job",
     "myJobs": "My Jobs",
     "applicants": "Applicants",
-    "admin": "Admin Panel"
+    "admin": "Admin Panel",
+    "messages": "Messages"
+  },
+  "messages": {
+    "title": "Messages",
+    "conversations": "Conversations",
+    "noConversations": "No messages yet",
+    "selectConversation": "Select a conversation",
+    "startConversation": "Send a message to start",
+    "sendMessage": "Send Message",
+    "send": "Send",
+    "sent": "Message sent",
+    "placeholder": "Type a message...",
+    "you": "You",
+    "to": "To",
+    "unknown": "User"
   },
   "home": {
     "hero": {
@@ -99,6 +114,7 @@
   "dashboard": {
     "welcome": "Welcome",
     "profile": "My Profile",
+    "applications": "My Applications",
     "savedJobs": "Saved Jobs",
     "myApplications": "My Applications",
     "noSaved": "No saved jobs",

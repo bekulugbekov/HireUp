@@ -36,6 +36,12 @@
     "withdrawn": "Ariza muvaffaqiyatli qaytarib olindi",
     "cannotWithdraw": "Ko'rib chiqilayotgan yoki tugallangan arizani qaytarib bo'lmaydi"
   },
+  "message": {
+    "sent": "Xabar yuborildi",
+    "contentRequired": "Xabar matni kiritilishi shart",
+    "cannotSelfMessage": "O'zingizga xabar yubora olmaysiz",
+    "userNotFound": "Foydalanuvchi topilmadi"
+  },
   "validation": {
     "required": "Bu maydon to'ldirilishi shart",
     "invalidEmail": "To'g'ri email kiriting",

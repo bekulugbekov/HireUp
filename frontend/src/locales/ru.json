@@ -12,7 +12,22 @@
     "postJob": "Разместить вакансию",
     "myJobs": "Мои вакансии",
     "applicants": "Кандидаты",
-    "admin": "Админ панель"
+    "admin": "Админ панель",
+    "messages": "Сообщения"
+  },
+  "messages": {
+    "title": "Сообщения",
+    "conversations": "Диалоги",
+    "noConversations": "Нет сообщений",
+    "selectConversation": "Выберите диалог",
+    "startConversation": "Напишите сообщение",
+    "sendMessage": "Написать",
+    "send": "Отправить",
+    "sent": "Сообщение отправлено",
+    "placeholder": "Введите сообщение...",
+    "you": "Вы",
+    "to": "Кому",
+    "unknown": "Пользователь"
   },
   "home": {
     "hero": {
@@ -99,6 +114,7 @@
   "dashboard": {
     "welcome": "Добро пожаловать",
     "profile": "Мой профиль",
+    "applications": "Мои заявки",
     "savedJobs": "Сохранённые вакансии",
     "myApplications": "Мои заявки",
     "noSaved": "Нет сохранённых вакансий",

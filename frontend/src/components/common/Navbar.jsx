@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../hooks/useAuth';
 import { useDarkMode } from '../../hooks/useDarkMode';
+import { messageService } from '../../services/messageService';
 
 const LANGS = [
   { code: 'uz', label: "O'z" },
@@ -18,6 +19,7 @@ export default function Navbar() {
   const [dark, toggleDark] = useDarkMode();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [unreadCount, setUnreadCount] = useState(0);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
@@ -26,6 +28,13 @@ export default function Navbar() {
     setMobileOpen(false);
     setDropdownOpen(false);
   }, [location.pathname]);
+
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    messageService.getUnreadCount()
+      .then((res) => setUnreadCount(res.data.data.count))
+      .catch(() => {});
+  }, [isAuthenticated, location.pathname]);
 
   useEffect(() => {
     const handleClick = (e) => {
@@ -79,6 +88,23 @@ export default function Navbar() {
               </>
             )}
             {isAuthenticated && isAdmin && navLink('/admin', t('nav.admin'))}
+            {isAuthenticated && (
+              <Link
+                to="/messages"
+                className={`relative text-sm font-medium transition-colors ${
+                  location.pathname === '/messages'
+                    ? 'text-primary-600 dark:text-primary-400'
+                    : 'text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400'
+                }`}
+              >
+                {t('nav.messages')}
+                {unreadCount > 0 && (
+                  <span className="absolute -top-2 -right-3 w-4 h-4 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                    {unreadCount > 9 ? '9+' : unreadCount}
+                  </span>
+                )}
+              </Link>
+            )}
           </div>
 
           {/* Desktop right actions */}
@@ -212,6 +238,10 @@ export default function Navbar() {
                     </>
                   )}
                   {isAdmin && <Link to="/admin" className="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors" onClick={() => setMobileOpen(false)}>{t('nav.admin')}</Link>}
+                  <Link to="/messages" className="flex items-center justify-between px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors" onClick={() => setMobileOpen(false)}>
+                    {t('nav.messages')}
+                    {unreadCount > 0 && <span className="w-5 h-5 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center">{unreadCount > 9 ? '9+' : unreadCount}</span>}
+                  </Link>
                 </>
               )}
 
