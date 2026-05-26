@@ -29,9 +29,9 @@ services:
       - key: LOG_LEVEL
         value: INFO
       - key: TRUSTED_HOSTS
-        value: hireup-fastapi.onrender.com
+        value: '["hireup-fastapi.onrender.com"]'
       - key: CORS_ORIGINS
-        value: "https://hireup-job.netlify.app"
+        value: '["https://hireup-job.netlify.app"]'
       - key: DATABASE_URL
         fromDatabase:
           name: hireup-postgres
