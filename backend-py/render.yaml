@@ -40,6 +40,8 @@ services:
         value: 5/minute
       - key: REGISTER_RATE_LIMIT
         value: 3/minute
+      - key: GUNICORN_WORKERS
+        value: "1"
 
 databases:
   - name: hireup-postgres
