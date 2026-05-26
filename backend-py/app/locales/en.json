@@ -1,0 +1,64 @@
+{
+  "auth": {
+    "registered": "Registered successfully",
+    "loggedIn": "Logged in successfully",
+    "loggedOut": "Logged out successfully",
+    "invalidCredentials": "Invalid email or password",
+    "unauthorized": "Unauthorized. Please login",
+    "forbidden": "Access denied",
+    "tokenExpired": "Session expired. Please login again",
+    "refreshInvalid": "Refresh token is invalid or expired",
+    "emailExists": "Email already registered",
+    "passwordRequired": "Current and new password are required",
+    "passwordTooShort": "New password must be at least 6 characters",
+    "wrongPassword": "Current password is incorrect",
+    "passwordChanged": "Password changed successfully"
+  },
+  "user": {
+    "notFound": "User not found",
+    "updated": "Profile updated successfully",
+    "deleted": "User deleted successfully"
+  },
+  "job": {
+    "created": "Job posted successfully",
+    "updated": "Job updated successfully",
+    "deleted": "Job deleted successfully",
+    "notFound": "Job not found",
+    "fetched": "Jobs fetched successfully",
+    "noPermission": "You can only manage your own job posts",
+    "activated": "Job activated successfully",
+    "deactivated": "Job deactivated successfully"
+  },
+  "application": {
+    "submitted": "Application submitted successfully",
+    "alreadyApplied": "You have already applied for this job",
+    "fetched": "Applications fetched successfully",
+    "notFound": "Application not found",
+    "updated": "Application status updated",
+    "withdrawn": "Application withdrawn successfully",
+    "cannotWithdraw": "Cannot withdraw an application that is already under review"
+  },
+  "message": {
+    "sent": "Message sent",
+    "contentRequired": "Message content is required",
+    "cannotSelfMessage": "You cannot send a message to yourself",
+    "userNotFound": "User not found"
+  },
+  "validation": {
+    "failed": "Submitted data is invalid",
+    "required": "This field is required",
+    "invalidEmail": "Please provide a valid email",
+    "passwordLength": "Password must be at least 6 characters",
+    "invalidRole": "Role must be user, employer, or admin",
+    "fileTooLarge": "File is too large",
+    "invalidFileType": "Only PDF, DOC, DOCX, JPG, PNG files are allowed"
+  },
+  "common": {
+    "notFound": "Not found",
+    "conflict": "Conflict: this resource already exists",
+    "rateLimited": "Too many requests, please try again later"
+  },
+  "server": {
+    "error": "Internal server error"
+  }
+}

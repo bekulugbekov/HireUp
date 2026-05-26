@@ -1,0 +1,104 @@
+name: backend-py release
+
+on:
+  push:
+    tags:
+      - "backend-py-v*"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}/backend-py
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract tags
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=tag
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=sha,prefix=
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: backend-py
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  smoke-test:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: hireup
+          POSTGRES_PASSWORD: hireup_dev_password
+          POSTGRES_DB: hireup
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U hireup"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run the pushed image and curl /api/health
+        run: |
+          IMAGE="${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${GITHUB_REF_NAME#refs/tags/}"
+          docker run -d --name hireup-api \
+            --network host \
+            -e APP_ENV=staging \
+            -e JWT_SECRET=ci_smoke_test_secret_value_long_enough \
+            -e POSTGRES_HOST=localhost \
+            -e POSTGRES_USER=hireup \
+            -e POSTGRES_PASSWORD=hireup_dev_password \
+            -e POSTGRES_DB=hireup \
+            "$IMAGE"
+
+          # Wait up to 30s for /api/health
+          for i in $(seq 1 30); do
+            if curl -fsS http://localhost:8000/api/health; then
+              echo "Health check passed"
+              exit 0
+            fi
+            sleep 1
+          done
+
+          echo "Health check never returned 200"
+          docker logs hireup-api
+          exit 1

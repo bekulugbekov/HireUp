@@ -1,0 +1,32 @@
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+exclude = ["alembic/versions"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "N", "ASYNC", "S", "C4", "SIM", "RUF"]
+ignore = ["S101", "B008", "S104"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101", "S106"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::PendingDeprecationWarning",
+]
+markers = [
+    "integration: requires a real PostgreSQL test database (TEST_DATABASE_URL)",
+]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+plugins = ["pydantic.mypy"]
+ignore_missing_imports = true
+
+[tool.coverage.run]
+source = ["app"]
+omit = ["app/main.py", "alembic/*"]
