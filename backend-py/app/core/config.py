@@ -5,12 +5,34 @@ variable is missing or malformed, the process refuses to start — surfacing
 config errors loudly rather than at the first request.
 """
 
+import json
 from functools import lru_cache
 from pathlib import Path
 from typing import Literal
 
-from pydantic import Field, PostgresDsn, field_validator
+from pydantic import Field, PostgresDsn
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+def _parse_str_list(value: str, *, default: list[str] | None = None) -> list[str]:
+    """Parse a list from a plain string, comma-separated string, or JSON array string.
+
+    Accepts any of:
+      - ``["a","b"]``   (JSON array — pydantic-settings v2 blueprint format)
+      - ``a,b``         (comma-separated)
+      - ``a``           (single value)
+    """
+    v = (value or "").strip()
+    if not v:
+        return default if default is not None else []
+    if v.startswith("["):
+        try:
+            result = json.loads(v)
+            if isinstance(result, list):
+                return [str(x).strip() for x in result if str(x).strip()]
+        except (json.JSONDecodeError, ValueError):
+            pass
+    return [x.strip() for x in v.split(",") if x.strip()]
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -31,14 +53,10 @@ class Settings(BaseSettings):
     app_port: int = 8000
 
     # ── CORS ─────────────────────────────────────────────
-    cors_origins: list[str] = Field(default_factory=list)
-
-    @field_validator("cors_origins", mode="before")
-    @classmethod
-    def split_cors(cls, v: str | list[str]) -> list[str]:
-        if isinstance(v, str):
-            return [origin.strip() for origin in v.split(",") if origin.strip()]
-        return v
+    # Stored as raw string so pydantic-settings v2 does NOT attempt JSON-decode.
+    # Use the `cors_origins` property everywhere — it handles JSON arrays,
+    # comma-separated values, and plain single-origin strings transparently.
+    cors_origins_raw: str = Field(default="", alias="cors_origins")
 
     # ── Database ─────────────────────────────────────────
     postgres_host: str = "localhost"
@@ -95,22 +113,28 @@ class Settings(BaseSettings):
     refresh_rate_limit: str = "30/minute"
 
     # ── HTTP hardening ───────────────────────────────────
-    trusted_hosts: list[str] = Field(default_factory=lambda: ["*"])
+    # Same raw-string pattern as cors_origins_raw — see note above.
+    trusted_hosts_raw: str = Field(default="*", alias="trusted_hosts")
     body_max_bytes: int = 10 * 1024 * 1024  # JSON / form bodies (uploads enforced separately)
     gzip_minimum_size: int = 1024
-
-    @field_validator("trusted_hosts", mode="before")
-    @classmethod
-    def split_hosts(cls, v: str | list[str]) -> list[str]:
-        if isinstance(v, str):
-            return [host.strip() for host in v.split(",") if host.strip()]
-        return v
 
     # ── Logging ──────────────────────────────────────────
     log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"] = "INFO"
 
     # ── i18n ─────────────────────────────────────────────
     default_language: Literal["uz", "ru", "en"] = "uz"
+
+    # ── Computed list properties ──────────────────────────
+    # These parse the raw string fields so callers get list[str] without
+    # pydantic-settings ever attempting a JSON-decode on the env var.
+
+    @property
+    def cors_origins(self) -> list[str]:
+        return _parse_str_list(self.cors_origins_raw)
+
+    @property
+    def trusted_hosts(self) -> list[str]:
+        return _parse_str_list(self.trusted_hosts_raw, default=["*"])
 
 
 @lru_cache
