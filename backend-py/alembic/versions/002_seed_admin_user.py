@@ -25,14 +25,13 @@ _ADMIN_PASSWORD_HASH = "$2b$12$9zdtgPSfaG6w9yVqV7pWveFBwXl60BChaAemYHSRCxDzOiON0
 def upgrade() -> None:
     op.execute(
         f"""
-        INSERT INTO users (full_name, email, password_hash, role, language, is_active)
+        INSERT INTO users (full_name, email, password_hash, role, language)
         VALUES (
             'Admin',
             'admin@hireup.uz',
             '{_ADMIN_PASSWORD_HASH}',
             'admin',
-            'uz',
-            true
+            'uz'
         )
         ON CONFLICT (email) DO NOTHING;
         """
